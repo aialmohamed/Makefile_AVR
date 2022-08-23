@@ -4,22 +4,29 @@
 #include <string.h>
 #include "UART_DRIVER.h"
 #include <util/delay.h>
-#define F_CPU 16000000UL
 
 
-unsigned char test1[]="HALLO !! \r\n";
 
-void main(void){
+unsigned char test1[]="data has been read\r\n";
+unsigned char test2[]="No data to read\r\n";
+int main(void){
 
-    OP_MODE_t urt_t;
-    SetOperatingMode(&urt_t,9600,ASY);
-    UartInit();
-    UART_EN_TX();
+    SetOperatingMode(115200,ASY_D);
+    sei();
+    uint8_t data=0;
     
 
     while(1)
     {
+        data = UartRead();
+        while(data == 10){
         UartTransmit(test1,strlen(test1));
         _delay_ms(1000);
+        data = UartRead();
+        }
+        UartTransmit(test2,strlen(test1));
+        _delay_ms(1000);
+
     }
+    return;
 }

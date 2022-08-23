@@ -47,11 +47,15 @@ unsigned char   RBReadByte(ring_buffer_t *rb)
     unsigned char tail;
     unsigned char RES;
 
+    tail =rb->tail;
+
     if(RBLength(rb) == 0)
     {
         return 0;
     }
+
     RES = rb->data[tail++];
+
     if(tail >= RING_BUFFER_SIZE)
     {
         tail=0;
@@ -64,6 +68,8 @@ unsigned char   RBReadByte(ring_buffer_t *rb)
 unsigned char   RBWriteByte(ring_buffer_t *rb,unsigned char data)
 {
     unsigned char head;
+    
+    head=rb->head;
     while(RBFree(rb) < 1 );
     
     rb->data[head++] =data;

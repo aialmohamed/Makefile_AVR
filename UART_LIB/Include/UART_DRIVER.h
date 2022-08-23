@@ -6,7 +6,7 @@
 #include <avr/interrupt.h>
 #include <string.h>
 #include "RingBuffer.h"
-#define F_CPU 8000000L
+#define F_CPU 16000000UL
 
 
 #define UART_EN_TX()        UCSR0B |=(1<<UDRIE0)
@@ -26,12 +26,6 @@
 
 typedef enum {ASY,ASY_D,SYC}OP_MODE_t;
 // Structs :
-typedef struct UART_OP_T
-{
-    OP_MODE_t operation_mode;
-    uint32_t Baud;
-    
-}UART_OP_T;
 
 
 // Enums 
@@ -41,6 +35,6 @@ typedef struct UART_OP_T
 
 
 // Methods :
-uint8_t SetOperatingMode(UART_OP_T* Uart_Operating_Configs,uint32_t Baud,OP_MODE_t Op_mode);
-void UartInit();
+uint8_t SetOperatingMode(uint32_t Baud,OP_MODE_t Op_mode);
 void UartTransmit(unsigned char *data,unsigned char bytes);
+uint8_t UartRead();

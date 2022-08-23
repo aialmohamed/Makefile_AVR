@@ -1,4 +1,4 @@
-#define RING_BUFFER_SIZE 128
+#define RING_BUFFER_SIZE 256
 
 
 typedef struct 
